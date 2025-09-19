@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import config from "../config";
+import config from "../config.js";
 import "./style.css";
 
 export default function GetCourseById() {
