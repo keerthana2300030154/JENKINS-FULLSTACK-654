@@ -7,7 +7,7 @@ export default function DeleteCourse({ refreshCourses }) {
   const [id, setId] = useState("");
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
-
+  const baseUrl = `${config.url}/courseapi`;
   const handleDelete = async () => {
     if (!id.trim()) {
       setMessage("⚠️ Please enter a valid Course ID.");
@@ -15,7 +15,7 @@ export default function DeleteCourse({ refreshCourses }) {
       return;
     }
     try {
-      await axios.delete(`${config.API_BASE_URL}/delete/${id}`);
+      await axios.delete(`${baseUrl}/delete/${id}`);
       setMessage(`✅ Course with ID ${id} deleted successfully.`);
       setIsError(false);
       setId("");

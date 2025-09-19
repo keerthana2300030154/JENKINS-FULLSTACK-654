@@ -8,7 +8,7 @@ export default function GetCourseById() {
   const [course, setCourse] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const baseUrl = `${config.url}/courseapi`;
   const handleSearch = async () => {
     if (!id.trim() || isNaN(id)) {
       setError("⚠️ Please enter a valid numeric Course ID!");
@@ -17,7 +17,7 @@ export default function GetCourseById() {
     }
     try {
       setLoading(true);
-      const response = await axios.get(`${config.API_BASE_URL}/get/${id}`);
+      const response = await axios.get(`${baseUrl}/get/${id}`);
       setCourse(response.data);
       setError("");
     } catch {

@@ -11,10 +11,11 @@ export default function AddCourse({ refreshCourses }) {
     setCourse({ ...course, [e.target.name]: e.target.value });
   };
 
+  const baseUrl = `${config.url}/courseapi`;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${config.API_BASE_URL}/add`, {
+      await axios.post(`${baseUrl}/add`, {
         name: course.name,
         faculty: course.faculty,
         price: Number(course.price),

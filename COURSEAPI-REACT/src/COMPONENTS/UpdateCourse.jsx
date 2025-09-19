@@ -8,7 +8,7 @@ export default function UpdateCourse() {
   const [course, setCourse] = useState({ name: "", faculty: "", price: "" });
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const baseUrl = `${config.url}/courseapi`;
   const handleSearch = async () => {
     if (!id || isNaN(id)) {
       setMessage("⚠️ Please enter a valid numeric Course ID!");
@@ -17,7 +17,7 @@ export default function UpdateCourse() {
     }
     try {
       setLoading(true);
-      const response = await axios.get(`${config.API_BASE_URL}/get/${id}`);
+      const response = await axios.get(`${baseUrl}/get/${id}`);
       setCourse({
         name: response.data.name,
         faculty: response.data.faculty,
@@ -39,7 +39,7 @@ export default function UpdateCourse() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${config.API_BASE_URL}/update`, {
+      await axios.put(`${baseUrl}/update`, {
         id: Number(id),
         ...course,
       });

@@ -5,10 +5,10 @@ import "./style.css";
 
 export default function CourseList() {
   const [courses, setCourses] = useState([]);
-
+  const baseUrl = `${config.url}/courseapi`;
   const fetchCourses = async () => {
     try {
-      const response = await axios.get(`${config.API_BASE_URL}/all`);
+      const response = await axios.get(`${baseUrl}/all`);
       setCourses(response.data);
     } catch (err) {
       console.error("❌ Failed to fetch courses", err);
