@@ -5,9 +5,10 @@ import "./style.css";
 export default function CourseList() {
   const [courses, setCourses] = useState([]);
 
+  // Fetch all courses
   const fetchCourses = async () => {
     try {
-      const response = await axios.get("http://localhost:2050/courseapi/all"); // ✅ fixed URL
+      const response = await axios.get("http://localhost:2030/courseapi/all");
       setCourses(response.data);
     } catch (err) {
       console.error("❌ Failed to fetch courses", err);
@@ -24,17 +25,18 @@ export default function CourseList() {
       <button onClick={fetchCourses} className="btn refresh-btn">
         🔄 Refresh
       </button>
-      <ul>
-        {courses.length > 0 ? (
-          courses.map((c) => (
+
+      {courses.length > 0 ? (
+        <ul>
+          {courses.map((c) => (
             <li key={c.id}>
-              {c.id} - {c.name} ({c.faculty}) ₹{c.price}
+              <strong>{c.id}</strong> - {c.name} ({c.faculty}) ₹{c.price}
             </li>
-          ))
-        ) : (
-          <p>No courses available</p>
-        )}
-      </ul>
+          ))}
+        </ul>
+      ) : (
+        <p>No courses available</p>
+      )}
     </div>
   );
 }

@@ -12,7 +12,6 @@ export default function UpdateCourse() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // 🔎 Search course by ID
   const handleSearch = async () => {
     if (!id || isNaN(id)) {
       setMessage("⚠️ Please enter a valid numeric Course ID!");
@@ -21,7 +20,7 @@ export default function UpdateCourse() {
     }
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:2050/courseapi/get/${id}`);
+      const response = await axios.get(`http://localhost:2030/courseapi/get/${id}`);
       setCourse({
         name: response.data.name,
         faculty: response.data.faculty,
@@ -36,17 +35,15 @@ export default function UpdateCourse() {
     }
   };
 
-  // 📝 Handle input change
   const handleChange = (e) => {
     setCourse({ ...course, [e.target.name]: e.target.value });
   };
 
-  // 🔄 Update course
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put("http://localhost:2050/courseapi/update", {
-        id: Number(id), // ✅ ensure ID is a number
+      await axios.put("http://localhost:2030/courseapi/update", {
+        id: Number(id), 
         ...course,
       });
       setMessage(`✅ Course with ID ${id} updated successfully!`);

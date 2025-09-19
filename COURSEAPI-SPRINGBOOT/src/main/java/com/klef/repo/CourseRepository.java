@@ -6,5 +6,5 @@ import com.klef.entity.Course;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
-    // Spring Data JPA already provides all CRUD methods
+  
 }

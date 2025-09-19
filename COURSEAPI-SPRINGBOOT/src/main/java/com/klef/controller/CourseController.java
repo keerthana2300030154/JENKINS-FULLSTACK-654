@@ -20,35 +20,31 @@ public class CourseController {
 
     @GetMapping("/")
     public String home() {
-        return "📚 Course Management API is Running on Manual Tomcat 🚀";
+        return "Course Management API is Running";
     }
 
-    // ➕ Add Course
     @PostMapping("/add")
     public ResponseEntity<Course> addCourse(@RequestBody Course course) {
         Course savedCourse = courseService.addCourse(course);
         return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
     }
 
-    // 📚 Get All Courses
     @GetMapping("/all")
     public ResponseEntity<List<Course>> getAllCourses() {
         List<Course> courses = courseService.getAllCourses();
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    // 🔎 Get Course by ID
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getCourseById(@PathVariable int id) {
         Course course = courseService.getCourseById(id);
         if (course != null) {
             return new ResponseEntity<>(course, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("❌ Course with ID " + id + " not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Course with ID " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 
-    // ✏️ Update Course
     @PutMapping("/update")
     public ResponseEntity<?> updateCourse(@RequestBody Course course) {
         Course existing = courseService.getCourseById(course.getId());
@@ -56,19 +52,17 @@ public class CourseController {
             Course updatedCourse = courseService.updateCourse(course);
             return new ResponseEntity<>(updatedCourse, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("❌ Cannot update. Course with ID " + course.getId() + " not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Cannot update. Course with ID " + course.getId() + " not found.", HttpStatus.NOT_FOUND);
         }
     }
-
-    // ❌ Delete Course
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteCourse(@PathVariable int id) {
         Course existing = courseService.getCourseById(id);
         if (existing != null) {
             courseService.deleteCourseById(id);
-            return new ResponseEntity<>("✅ Course with ID " + id + " deleted successfully.", HttpStatus.OK);
+            return new ResponseEntity<>("Course with ID " + id + " deleted successfully.", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("❌ Cannot delete. Course with ID " + id + " not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Cannot delete. Course with ID " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 }

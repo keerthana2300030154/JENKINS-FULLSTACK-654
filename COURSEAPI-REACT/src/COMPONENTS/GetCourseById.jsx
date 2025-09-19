@@ -17,7 +17,7 @@ export default function GetCourseById() {
 
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:2050/courseapi/get/${id}`);
+      const response = await axios.get(`http://localhost:2030/courseapi/get/${id}`);
       setCourse(response.data);
       setError("");
     } catch (err) {
@@ -38,7 +38,7 @@ export default function GetCourseById() {
           placeholder="Enter Course ID"
           value={id}
           onChange={(e) => setId(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSearch()} // Press Enter to search
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()} 
           className="form-input"
         />
         <button onClick={handleSearch} className="btn search-btn" disabled={loading}>

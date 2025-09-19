@@ -14,12 +14,10 @@ export default function DeleteCourse({ refreshCourses }) {
       return;
     }
     try {
-      await axios.delete(`http://localhost:2050/courseapi/delete/${id}`);
+      await axios.delete(`http://localhost:2030/courseapi/delete/${id}`);
       setMessage(`✅ Course with ID ${id} deleted successfully.`);
       setIsError(false);
       setId("");
-
-      // 🔄 Trigger parent refresh (CourseList)
       if (refreshCourses) {
         refreshCourses();
       }
@@ -38,7 +36,7 @@ export default function DeleteCourse({ refreshCourses }) {
         placeholder="Enter Course ID"
         value={id}
         onChange={(e) => setId(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && handleDelete()} // 🔑 Press Enter
+        onKeyDown={(e) => e.key === "Enter" && handleDelete()} 
         className="form-input"
       />
 

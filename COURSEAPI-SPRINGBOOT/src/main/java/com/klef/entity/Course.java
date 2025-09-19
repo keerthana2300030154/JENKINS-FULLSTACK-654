@@ -16,7 +16,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;     // ✅ Course Name
-    private String faculty;  // ✅ Faculty Name
-    private double price;    // ✅ Course Price
+    private String name;     
+    private String faculty;  
+    private double price;   
 }

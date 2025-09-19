@@ -13,18 +13,20 @@ export default function AddCourse({ refreshCourses }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:2050/courseapi/add", {
+      await axios.post("http://localhost:2030/courseapi/add", {
         name: course.name,
         faculty: course.faculty,
-        price: Number(course.price), // ✅ Convert price to number
+        price: Number(course.price),
       });
+
       setMessage("✅ Course added successfully!");
       setCourse({ name: "", faculty: "", price: "" });
 
       if (refreshCourses) {
-        refreshCourses(); // refresh course list
+        refreshCourses();
       }
     } catch (err) {
+      console.error("❌ Failed to add course:", err);
       setMessage("❌ Failed to add course.");
     }
   };
@@ -60,11 +62,13 @@ export default function AddCourse({ refreshCourses }) {
           className="form-input"
           required
         />
-        <button type="submit" className="btn add-btn">Add Course</button>
+        <button type="submit" className="btn add-btn">
+          Add Course
+        </button>
       </form>
 
       {message && (
-        <p className={`message ${message.startsWith("✅") ? "success" : "error"}`}>
+        <p className={`${message.startsWith("✅") ? "success" : "error"}`}>
           {message}
         </p>
       )}
