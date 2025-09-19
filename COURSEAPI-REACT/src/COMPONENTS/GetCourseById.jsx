@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import config from "../config";
 import "./style.css";
 
 export default function GetCourseById() {
@@ -14,13 +15,12 @@ export default function GetCourseById() {
       setCourse(null);
       return;
     }
-
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:2030/courseapi/get/${id}`);
+      const response = await axios.get(`${config.API_BASE_URL}/get/${id}`);
       setCourse(response.data);
       setError("");
-    } catch (err) {
+    } catch {
       setError(`❌ Course with ID ${id} not found.`);
       setCourse(null);
     } finally {
@@ -31,23 +31,20 @@ export default function GetCourseById() {
   return (
     <div className="form-container">
       <h2 className="form-title">🔎 Get Course By ID</h2>
-
       <div className="search-container">
         <input
           type="number"
           placeholder="Enter Course ID"
           value={id}
           onChange={(e) => setId(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSearch()} 
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           className="form-input"
         />
         <button onClick={handleSearch} className="btn search-btn" disabled={loading}>
           {loading ? "Searching..." : "Search"}
         </button>
       </div>
-
       {error && <p className="message error">{error}</p>}
-
       {course && (
         <div className="course-details">
           <h3>📘 Course Details</h3>

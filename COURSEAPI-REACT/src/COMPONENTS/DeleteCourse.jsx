@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import config from "../config";
 import "./style.css";
 
 export default function DeleteCourse({ refreshCourses }) {
@@ -14,13 +15,11 @@ export default function DeleteCourse({ refreshCourses }) {
       return;
     }
     try {
-      await axios.delete(`http://localhost:2030/courseapi/delete/${id}`);
+      await axios.delete(`${config.API_BASE_URL}/delete/${id}`);
       setMessage(`✅ Course with ID ${id} deleted successfully.`);
       setIsError(false);
       setId("");
-      if (refreshCourses) {
-        refreshCourses();
-      }
+      if (refreshCourses) refreshCourses();
     } catch (err) {
       setMessage("❌ Failed to delete course. Please check ID.");
       setIsError(true);
@@ -30,20 +29,15 @@ export default function DeleteCourse({ refreshCourses }) {
   return (
     <div className="form-container">
       <h2 className="form-title">Delete Course</h2>
-
       <input
         type="number"
         placeholder="Enter Course ID"
         value={id}
         onChange={(e) => setId(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && handleDelete()} 
+        onKeyDown={(e) => e.key === "Enter" && handleDelete()}
         className="form-input"
       />
-
-      <button onClick={handleDelete} className="btn delete-btn">
-        Delete
-      </button>
-
+      <button onClick={handleDelete} className="btn delete-btn">Delete</button>
       {message && (
         <p className={`message ${isError ? "error" : "success"}`}>{message}</p>
       )}

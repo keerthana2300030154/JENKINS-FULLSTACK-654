@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import config from "../config";
 import "./style.css";
 
 export default function AddCourse({ refreshCourses }) {
@@ -13,7 +14,7 @@ export default function AddCourse({ refreshCourses }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:2030/courseapi/add", {
+      await axios.post(`${config.API_BASE_URL}/add`, {
         name: course.name,
         faculty: course.faculty,
         price: Number(course.price),
@@ -22,9 +23,7 @@ export default function AddCourse({ refreshCourses }) {
       setMessage("✅ Course added successfully!");
       setCourse({ name: "", faculty: "", price: "" });
 
-      if (refreshCourses) {
-        refreshCourses();
-      }
+      if (refreshCourses) refreshCourses();
     } catch (err) {
       console.error("❌ Failed to add course:", err);
       setMessage("❌ Failed to add course.");
@@ -62,11 +61,8 @@ export default function AddCourse({ refreshCourses }) {
           className="form-input"
           required
         />
-        <button type="submit" className="btn add-btn">
-          Add Course
-        </button>
+        <button type="submit" className="btn add-btn">Add Course</button>
       </form>
-
       {message && (
         <p className={`${message.startsWith("✅") ? "success" : "error"}`}>
           {message}
